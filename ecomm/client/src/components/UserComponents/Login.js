@@ -47,6 +47,7 @@ export default class Login extends Component
                         console.log("User logged in")
 
                         localStorage.name = res.data.name
+                        localStorage.email = res.data.email
                         localStorage.accessLevel = res.data.accessLevel
                         if(localStorage.profilePhoto !== "undefined"){
                         localStorage.profilePhoto = res.data.profilePhoto

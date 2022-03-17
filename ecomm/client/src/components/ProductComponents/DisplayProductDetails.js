@@ -6,7 +6,8 @@ import axios from "axios"
 import {ACCESS_LEVEL_GUEST, SERVER_HOST} from "../../config/global_constants"
 import {CloseButton} from "react-bootstrap";
 import LinkInClass from "../LinkInClass";
-import BuyProduct from "./BuyProduct";
+import BuyProduct from "../SalesComponents/BuyProduct";
+import jwt from "jsonwebtoken";
 
 
 export default class DisplayProductDetails extends Component {
@@ -81,6 +82,8 @@ export default class DisplayProductDetails extends Component {
 
     }
     handleSubmit = (e) => {
+        const token2 = jwt.decode(localStorage.token,{algorithm: 'HS256'})
+
         axios.get(`${SERVER_HOST}/products/${this.props.match.params.id}`, {headers: {"authorization": localStorage.token}})
             .then(res => {
                 // console.log(res.data)
@@ -88,23 +91,22 @@ export default class DisplayProductDetails extends Component {
                     if (res.data.errorMessage) {
                         console.log(res.data.errorMessage)
                     } else {
-                        axios.get(`${SERVER_HOST}/users/${this.state.email}`, {headers: {"authorization": localStorage.token}})
-                            .then(res => {
-                                let user = res.data
-                                if (res.data) {
-                                    if (res.data.errorMessage) {
-                                        console.log(res.data.errorMessage)
-                                    } else {
-                                        console.log(this.props.match.params.id)
-                                        console.log(user[0]._id)
-                                        axios.post(`${SERVER_HOST}/users/${this.props.match.params.id}/cart/${user[0]._id}`)
+console.log(token2.id)
+
+                        console.log(this.props.match.params.id)
+                                        axios.post(`${SERVER_HOST}/users/${token2.id}/cart/${this.props.match.params.id}`)
                                             .then(res => {
-                                                console.log("Added to Cart")
+                                                if(res) {
+                                                    console.log("Added to Cart")
+                                                }
+                                                else
+                                                {
+                                                    console.log("error")
+                                                }
                                             })
                                     }
-                                }
-                            })
-                    }
+
+
                 }
             })
 

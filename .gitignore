@@ -1,0 +1,4 @@
+# Project exclude paths
+/ecomm/client/node_modules/
+/ecomm/server/node_modules/
+/node_modules/

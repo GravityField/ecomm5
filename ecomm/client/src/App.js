@@ -9,8 +9,8 @@ import EditProduct from "./components/ProductComponents/EditProduct"
 import DeleteProduct from "./components/ProductComponents/DeleteProduct"
 import DisplayAllProducts from "./components/ProductComponents/DisplayAllProducts"
 import DisplayProductDetails from "./components/ProductComponents/DisplayProductDetails";
-import BuyProduct from "./components/ProductComponents/BuyProduct"
-import PayPalMessage from "./components/ProductComponents/PayPalMessage"
+import BuyProduct from "./components/SalesComponents/BuyProduct"
+import PayPalMessage from "./components/SalesComponents/PayPalMessage"
 import Register from "./components/UserComponents/Register";
 import ResetDatabase from "./components/ResetDatabase";
 
@@ -18,15 +18,16 @@ import HomePage from "./components/HomePage"
 import Account from "./components/UserComponents/Account";
 import Login from "./components/UserComponents/Login";
 import Logout from "./components/UserComponents/Logout";
-import Cart from "./components/Cart";
+import Cart from "./components/UserComponents/Cart";
 import {ACCESS_LEVEL_GUEST} from "./config/global_constants"
 import LoggedInRoute from "./components/LoggedInRoute";
 import SideBar from "./components/SideBar";
 import DisplayAllUsers from "./components/UserComponents/DisplayAllUsers";
 import DeleteUser from "./components/UserComponents/DeleteUser";
-import PurchaseHistory from "./components/UserComponents/PurchaseHistory"
+import PurchaseHistory from "./components/SalesComponents/PurchaseHistory"
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 if (typeof localStorage.accessLevel === "undefined")
 {
@@ -72,7 +73,7 @@ export default class App extends Component
                 </Switch>
 
                 <br/>
-                <footer>©2022 Nathan Field </footer>
+                <Footer/>
             </BrowserRouter>
 
         )

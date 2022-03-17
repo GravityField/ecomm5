@@ -80,7 +80,8 @@ export default class BuyProduct extends Component
                     onError = {this.onError}
                     onCancel = {this.onCancel}
 
-                    style={{size: "small", color: "blue"}}
+
+                    style={{size: "small", color: "gold"}}
                 />
             </div>
         )

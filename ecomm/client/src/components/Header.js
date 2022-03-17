@@ -15,6 +15,7 @@ export default class Header extends Component {
             <Link to={"/DisplayAllProducts"} className="font-effect-fire">Hoodies.ie</Link>
 
             <Link to={"/Cart"}><ShoppingCart className="shopping-icon"> </ShoppingCart></Link>
+
             <Link to={"/PurchaseHistory"}><InventoryIcon className="inventory-icon"> </InventoryIcon></Link>
 
             <SideBar/>

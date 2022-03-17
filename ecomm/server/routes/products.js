@@ -126,7 +126,7 @@ router.get(`/products`, getProducts)
 router.get(`/products/:id`, verifyUsersJWTPassword, getProductDocument)
 router.get(`/product/photo/:filename`, (req, res) =>
 {
-    fs. File(`${process.env.UPLOADED_PRODUCT_IMAGE_FOLDER}/${req.params.filename}`, 'base64', (err, fileData) =>
+    fs.readFile(`${process.env.UPLOADED_PRODUCT_IMAGE_FOLDER}/${req.params.filename}`, 'base64', (err, fileData) =>
     {
         if(fileData)
         {

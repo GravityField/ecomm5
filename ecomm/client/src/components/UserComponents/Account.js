@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {Redirect} from "react-router-dom"
 import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
+import jwt from "jsonwebtoken";
 // import Form from "react-bootstrap/Form"
 //
 // import axios from "axios"
@@ -27,7 +28,9 @@ export default class Account extends Component
 
     componentDidMount()
     {
-        axios.get(`${SERVER_HOST}/users/${this.props.match.params.id}`, {headers:{"authorization":localStorage.token}})
+        const token2 = jwt.decode(localStorage.token,{algorithm: 'HS256'})
+        console.log(token2)
+        axios.get(`${SERVER_HOST}/users/${token2.id}`, {headers:{"authorization":localStorage.token}})
             .then(res => {
                     if (res.data) {
                         if (res.data.errorMessage) {

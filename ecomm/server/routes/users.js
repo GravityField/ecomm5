@@ -33,6 +33,10 @@ router.post(`/users/reset_user_collection`, (req,res) =>
 
                             res.json(createData)
                         })
+                        emptyFolder(process.env.UPLOADED_PRODUCT_IMAGE_FOLDER, false, (result) =>
+                        {
+                            // the folder was successfully emptied
+                        })
 
                     }
                     else
@@ -59,13 +63,6 @@ router.get(`/users`, (req, res) =>
 router.get(`/users/:id`,(req,res) =>
 {
     usersModel.findById(req.params.id,(error, data) =>
-    {
-        res.json(data)
-    })
-})
-router.get(`/users/:email`,(req,res)=>
-{
-    usersModel.findOne(req.params.email,(error, data) =>
     {
         res.json(data)
     })
@@ -100,7 +97,7 @@ router.post(`/users/register/:name/:email/:password`, upload.single("profilePhot
                     {
                         if(data)
                         {
-                            const token = jwt.sign({email: data.email, accessLevel:data.accessLevel}, JWT_PRIVATE_KEY, {algorithm: 'HS256', expiresIn:process.env.JWT_EXPIRY})
+                            const token = jwt.sign({id: data.id, email: data.email, accessLevel:data.accessLevel}, JWT_PRIVATE_KEY, {algorithm: 'HS256', expiresIn:process.env.JWT_EXPIRY})
 
                             fs.readFile(`${process.env.UPLOADED_PROFILE_IMAGE_FOLDER}/${req.file.filename}`, 'base64', (err, fileData) =>
                             {
@@ -137,9 +134,9 @@ router.post(`/users/login/:email/:password`, (req,res) =>
             {
                 if(result)
                 {
-                    const token = jwt.sign({email:data.email, accessLevel:data.accessLevel}, JWT_PRIVATE_KEY, {algorithm:'HS256', expiresIn:process.env.JWT_EXPIRY})
+                    const token = jwt.sign({id: data.id,email:data.email, accessLevel:data.accessLevel}, JWT_PRIVATE_KEY, {algorithm:'HS256', expiresIn:process.env.JWT_EXPIRY})
 
-                    res.json({name: data.name, accessLevel:data.accessLevel, token:token})
+                    res.json({name: data.name, email: data.email, accessLevel:data.accessLevel, token:token})
                 }
                 else
                 {
@@ -156,13 +153,9 @@ router.post(`/users/login/:email/:password`, (req,res) =>
 })
 
 router.post(`/users/:id/cart/:_id`,(req,res) =>
-    productsModel.findById(req.params.id, (error, data) =>
+    productsModel.findById(req.params._id, (error, data) =>
     {
-        // console.log("data 1")
-        // console.log(data)
-        // console.log("data 2")
-        // console.log(req.params._id)
-            usersModel.findByIdAndUpdate(req.params._id, {$push: {cart: data} }, (error, data) => {
+            usersModel.findByIdAndUpdate(req.params.id, {$push: {cart: data} }, (error, data) => {
                 if (data) {
                     res.json({
                         cart: data
@@ -171,6 +164,24 @@ router.post(`/users/:id/cart/:_id`,(req,res) =>
                     console.log("Error")
                 }
             })
+    })
+)
+router.delete(`/users/:id/cart/:_id`,(req,res) =>
+           usersModel.findById(req.params.id, (error, data) => {
+            if (data) {
+                for(let i = 0; i < data.cart.length; i++)
+                {
+                    if(data.cart[i]._id.equals(req.params._id))
+                    {
+                        data.cart.splice(i,1 );
+                        usersModel.findByIdAndUpdate(req.params.id,  {cart: data.cart}, (error, data) => {
+                            res.json({cart:data})
+                        })
+                    }
+                }
+            } else {
+                console.log("Error")
+            }
     })
 )
 router.delete(`/users/:id`, (req, res) =>

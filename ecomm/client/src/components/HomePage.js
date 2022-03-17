@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 
 import axios from "axios"
 
-import ProductPage from "./ProductPage"
+import ProductPage from "./ProductComponents/ProductPage"
 
 import {ACCESS_LEVEL_ADMIN, ACCESS_LEVEL_NORMAL_USER, SERVER_HOST} from "../config/global_constants"
 
