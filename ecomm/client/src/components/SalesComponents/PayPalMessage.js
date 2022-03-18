@@ -12,7 +12,7 @@ export default class PayPalMessage extends Component
         super(props)
 
         this.state = {redirectToDisplayAllProducts:false,
-            buttonColour:"red-button"}
+            buttonColour:"cancel-button"}
     }
 
 
@@ -22,7 +22,7 @@ export default class PayPalMessage extends Component
         {
             this.setState({heading:"PayPal Transaction Confirmation",
                 message:"Your PayPal transaction was successful.",
-                buttonColour:"green-button"})
+                buttonColour:"add-button"})
         }
         else if(this.props.match.params.messageType === PayPalMessage.messageType.CANCEL)
         {

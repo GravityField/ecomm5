@@ -22,7 +22,7 @@ export default class BuyProduct extends Component
     onSuccess = paymentData =>
     {
 
-        axios.post(`${SERVER_HOST}/sales/${paymentData.paymentID}/${this.props.productID}/${this.props.price}/${paymentData.address.recipient_name}/${paymentData.email}`, {headers:{"authorization":localStorage.token, "Content-type": "multipart/form-data"}})
+        axios.post(`${SERVER_HOST}/sales/${paymentData.paymentID}/${this.props.productID}/${this.props.price}/${paymentData.address.recipient_name}/${localStorage.email}`, {headers:{"authorization":localStorage.token, "Content-type": "multipart/form-data"}})
             .then(res =>
             {
                 this.setState({payPalMessageType:PayPalMessage.messageType.SUCCESS,
@@ -81,7 +81,7 @@ export default class BuyProduct extends Component
                     onCancel = {this.onCancel}
 
 
-                    style={{size: "small", color: "gold"}}
+                    style={{size: "small", color: "gold", tagline: false}}
                 />
             </div>
         )

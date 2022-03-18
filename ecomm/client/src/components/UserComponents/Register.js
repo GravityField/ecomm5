@@ -19,6 +19,7 @@ export default class Register extends Component
             password:"",
             confirmPassword:"",
             selectedFile:null,
+            wasSubmittedAtLeastOnce: false,
             isRegistered:false
         }
     }
@@ -35,42 +36,121 @@ export default class Register extends Component
     }
 
 
-    handleSubmit = (e) =>
-    {
+    handleSubmit = (e) => {
         e.preventDefault()
+
+        this.setState({wasSubmittedAtLeastOnce: true});
+console.log("Here Submitted")
+        const formInputsState = this.validate();
+        console.log(formInputsState)
         let formData = new FormData()
-        formData.append("profilePhoto", this.state.selectedFile)
 
-        axios.post(`${SERVER_HOST}/users/register/${this.state.name}/${this.state.email}/${this.state.password}`, formData, {headers: {"Content-type": "multipart/form-data"}})
-            .then(res =>
-            {
+        if (Object.keys(formInputsState).every(index => formInputsState[index])) {
 
-                if(res.data)
-                {
-                    if (res.data.errorMessage)
-                    {
-                        console.log(res.data.errorMessage)
+            formData.append("profilePhoto", this.state.selectedFile)
+
+            axios.post(`${SERVER_HOST}/users/register/${this.state.name}/${this.state.email}/${this.state.password}`, formData, {headers: {"Content-type": "multipart/form-data"}})
+                .then(res => {
+
+                    if (res.data) {
+                        if (res.data.errorMessage) {
+                            alert(res.data.errorMessage)
+                        } else // user successfully registered
+                        {
+                            console.log("User registered")
+                            localStorage.name = res.data.name
+                            localStorage.accessLevel = res.data.accessLevel
+                            localStorage.profilePhoto = res.data.profilePhoto
+                            localStorage.token = res.data.token
+                            this.setState({isRegistered: true})
+                        }
+                    } else {
+                        console.log("Registration failed")
                     }
-                    else // user successfully registered
-                    {
-                        console.log("User registered")
-                        localStorage.name = res.data.name
-                        localStorage.accessLevel = res.data.accessLevel
-                        localStorage.profilePhoto = res.data.profilePhoto
-                        localStorage.token = res.data.token
-                        this.setState({isRegistered:true})
-                    }
-                }
-                else
-                {
-                    console.log("Registration failed")
-                }
-            })
+                })
+        }
+    }
+
+    validateName()
+    {
+        const pattern = /^[A-Za-z]+$/;
+        return pattern.test(String(this.state.name).toLowerCase())
+    }
+
+    validateEmail()
+    {
+
+        const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(String(this.state.email).toLowerCase())
     }
 
 
+    validatePassword()
+    {
+        const pattern = /^(?=.[£!#€$%^&*]).{8,}$/
+        return pattern.test(String(this.state.password))
+    }
+
+
+    validateConfirmPassword()
+    {
+        return ((this.state.confirmPassword.length > 0) && (this.state.password === this.state.confirmPassword))
+    }
+
+
+    validate()
+    {
+        return{
+            name: this.validateName(),
+            email: this.validateEmail(),
+            password: this.validatePassword(),
+            confirmPassword: this.validateConfirmPassword()
+        }
+    }
     render()
     {
+        const formInputsState = this.validate()
+        const inputsAreAllValid = Object.keys(formInputsState).every(index => formInputsState[index])
+
+        let emailErrorMessage = ""
+        let passwordErrorMessage = ""
+        let confirmPasswordErrorMessage = ""
+
+        if(!this.validateEmail())
+        {
+            emailErrorMessage = <div className="error">Enter a valid email<br/></div>
+        }
+
+        if(!this.validatePassword())
+        {
+            let errorMessages = []
+            if(this.state.password.length < 10)
+            {
+                errorMessages.push({id:0, text:"Password must be at least ten characters long."})
+            }
+            if(!this.state.password.match(/[0-9]/))
+            {
+                errorMessages.push({id:1, text:"Password must contain at least one digit (0-9)."})
+            }
+            if(!this.state.password.match(/[a-z]/))
+            {
+                errorMessages.push({id:2, text:"Password must contain at least one lowercase character."})
+            }
+            if(!this.state.password.match(/[A-Z]/))
+            {
+                errorMessages.push({id:3, text:"Password must contain at least one uppercase character.{'\n''}"})
+            }
+            if(!this.state.password.match(/[£!#€$%^&*]/))
+            {
+                errorMessages.push({id:4, text:"Password must contain at least one of the characters £!#€$%^&*"})
+            }
+            passwordErrorMessage = <div className="error"><ul>{errorMessages.map(errorMessage => <li key={errorMessage.id}> {errorMessage.text} </li>)}</ul></div>
+        }
+
+        if(!this.validateConfirmPassword())
+        {
+            confirmPasswordErrorMessage = <div className="error">Passwords must match<br/></div>
+        }
         return (
             <form className="form-container" noValidate = {true} id = "loginOrRegistrationForm">
 
@@ -96,6 +176,8 @@ export default class Register extends Component
                     value = {this.state.email}
                     onChange = {this.handleChange}
                 /><br/>
+                {this.state.wasSubmittedAtLeastOnce ? emailErrorMessage : null}
+
 
                 <input
                     name = "password"
@@ -106,6 +188,7 @@ export default class Register extends Component
                     value = {this.state.password}
                     onChange = {this.handleChange}
                 /><br/>
+                {this.state.wasSubmittedAtLeastOnce ? passwordErrorMessage : null}
 
                 <input
                     name = "confirmPassword"
@@ -115,14 +198,14 @@ export default class Register extends Component
                     value = {this.state.confirmPassword}
                     onChange = {this.handleChange}
                 /><br/><br/>
-
+                {this.state.wasSubmittedAtLeastOnce ? confirmPasswordErrorMessage : null}
                 <input
                     type = "file"
                     onChange = {this.handleFileChange}
                 />
                 <br/>
-                <LinkInClass value="Register New User" className="green-button" onClick={this.handleSubmit} />
-                <Link className="red-button" to={"/Login"}>Cancel</Link>
+                <LinkInClass value="Register New User" className="add-button" onClick={this.handleSubmit} />
+                <Link className="cancel-button" to={"/Login"}>Cancel</Link>
             </form>
         )
     }

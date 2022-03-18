@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Link} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -20,7 +20,7 @@ export default class CartTableRow extends Component {
 
 
         this.state = {
-            email: ""
+            redirectToCart: false
         }
     }
 
@@ -47,11 +47,8 @@ export default class CartTableRow extends Component {
     }
 
     handleSubmit = (e) => {
-        const token2 = jwt.decode(localStorage.token, {algorithm: 'HS256'})
-        axios.delete(`${SERVER_HOST}/users/${token2.id}/cart/${this.props.product._id}`)
-            .then(res => {
-                console.log("Removed from Cart")
-            })
+
+
 
     }
 
@@ -64,8 +61,9 @@ export default class CartTableRow extends Component {
                 soldOrForSale = "SOLD"
             }
         }
-
+        console.log(this.state.redirectToCart)
         return (
+
             <tr>
                 <td><Link
                     to={"/DisplayProductDetails/" + this.props.product._id}>{this.props.product.productName}</Link></td>
@@ -81,7 +79,7 @@ export default class CartTableRow extends Component {
                 <td>
                     {localStorage.accessLevel >= ACCESS_LEVEL_NORMAL_USER ?
                         <Link className="delete-button"
-                              to={"/Cart"} onClick={this.handleSubmit}><DeleteIcon/></Link>
+                              to={"/DeleteCart/" + this.props.product._id}><DeleteIcon/></Link>
                         : null}
 
                 </td>

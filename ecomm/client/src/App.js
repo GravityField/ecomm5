@@ -19,6 +19,8 @@ import Account from "./components/UserComponents/Account";
 import Login from "./components/UserComponents/Login";
 import Logout from "./components/UserComponents/Logout";
 import Cart from "./components/UserComponents/Cart";
+import DeleteCart from "./components/UserComponents/DeleteCart";
+
 import {ACCESS_LEVEL_GUEST} from "./config/global_constants"
 import LoggedInRoute from "./components/LoggedInRoute";
 import SideBar from "./components/SideBar";
@@ -28,6 +30,7 @@ import PurchaseHistory from "./components/SalesComponents/PurchaseHistory"
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import AddToCart from "./components/UserComponents/AddToCart";
 
 if (typeof localStorage.accessLevel === "undefined")
 {
@@ -67,6 +70,9 @@ export default class App extends Component
                     <Route exact path="/PurchaseHistory" component={PurchaseHistory}/>
                     <Route exact path="/DisplayAllProducts" component={SideBar}/>
                     <Route exact path="/Cart" component={Cart}/>
+                    <Route exact path="/AddToCart/:_id" component={AddToCart}/>
+                    <Route exact path="/DeleteCart/:_id" component={DeleteCart}/>
+
                     <Route exact path="/Register" component={Register} />
                     <Route exact path="/ResetDatabase" component={ResetDatabase}/>
                     <Route path="*" component={DisplayAllProducts}/>

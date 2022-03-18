@@ -104,7 +104,7 @@ const editProductDocument = (req,res) =>
     {productDetails.productImages[index] = {filename:`${file.filename}`}
     })
 
-
+    console.log(productDetails)
     productsModel.findByIdAndUpdate(req.params.id, {$set: productDetails}, (error, data) =>
     {
         res.json(data)

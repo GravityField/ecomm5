@@ -3,6 +3,7 @@ import {Redirect} from "react-router-dom"
 import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
 import SaleTableRow from "./SaleTableRow";
+import jwt from "jsonwebtoken";
 // import Form from "react-bootstrap/Form"
 //
 // import axios from "axios"
@@ -34,7 +35,9 @@ export default class PurchaseHistory extends Component
 
     componentDidMount()
     {
-        axios.get(`${SERVER_HOST}/users/${this.state.email}`, {headers:{"authorization":localStorage.token}})
+
+        const token2 = jwt.decode(localStorage.token,{algorithm: 'HS256'})
+        axios.get(`${SERVER_HOST}/users/${token2.id}`, {headers:{"authorization":localStorage.token}})
             .then(res => {
 
                     if (res.data) {
@@ -43,7 +46,7 @@ export default class PurchaseHistory extends Component
                         } else {
                             console.log(res.data)
                             this.setState({
-                                email: res.data[0].email
+                                email: res.data.email
 
                             })
                             axios.get(`${SERVER_HOST}/sales/${this.state.email}`, {headers:{"authorization":localStorage.token}})

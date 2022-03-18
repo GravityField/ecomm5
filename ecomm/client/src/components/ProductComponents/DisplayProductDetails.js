@@ -91,19 +91,16 @@ export default class DisplayProductDetails extends Component {
                     if (res.data.errorMessage) {
                         console.log(res.data.errorMessage)
                     } else {
-console.log(token2.id)
-
-                        console.log(this.props.match.params.id)
-                                        axios.post(`${SERVER_HOST}/users/${token2.id}/cart/${this.props.match.params.id}`)
-                                            .then(res => {
-                                                if(res) {
-                                                    console.log("Added to Cart")
-                                                }
-                                                else
-                                                {
-                                                    console.log("error")
-                                                }
-                                            })
+                                        // axios.post(`${SERVER_HOST}/users/${token2.id}/cart/${this.props.match.params.id}`)
+                                        //     .then(res => {
+                                        //         if(res) {
+                                        //             console.log("Added to Cart")
+                                        //         }
+                                        //         else
+                                        //         {
+                                        //             console.log("error")
+                                        //         }
+                                        //     })
                                     }
 
 
@@ -119,7 +116,7 @@ console.log(token2.id)
         {
             if(this.state.sold !== true)
             {
-                soldOrForSale = <Link className="blue-button" to={"/Cart"} onClick={this.handleSubmit}>Add to Cart</Link>
+                soldOrForSale = <Link className="add-button" to={"/AddToCart/" + this.props.match.params.id} onClick={this.handleSubmit}>Add to Cart</Link>
             }
             else
             {

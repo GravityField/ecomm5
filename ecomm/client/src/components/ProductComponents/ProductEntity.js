@@ -42,26 +42,28 @@ export default class ProductEntity extends Component
     {
         return (
             <div className="product">
-            <Link to={"/DisplayProductDetails/" + this.props.product._id}>{this.props.product.productName}</Link>
+                <div className="buttons-grouped">
+                {localStorage.accessLevel > ACCESS_LEVEL_GUEST ?
+                    <Link className="edit-button"
+                          to={"/EditProduct/" + this.props.product._id}><EditIcon/></Link>
+
+                    : null}
+                {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
+                    <Link className="delete-button"
+                          to={"/DeleteProduct/" + this.props.product._id}><DeleteIcon/></Link>
+                    : null}
+                </div>
                 <div className="productPhotos">
                     {this.props.product.productImages.map(photo => <img key={photo._id} id={photo._id} alt=""/>)}
                     {/*{<img key={this.props.product.productImages._id} id={this.props.product.productImages[0]._id} alt=""  />}*/}
-
+                    <Link to={"/DisplayProductDetails/" + this.props.product._id}>{this.props.product.productName}</Link>
                 </div>
+                <div className="product-info">
                 <p>{this.props.product.size}</p>
                 {/*<p>{this.props.product.color}</p>*/}
                     <p>{this.props.product.stockLevel}</p>
                         <p>€{this.props.product.price}</p>
-
-                    {localStorage.accessLevel > ACCESS_LEVEL_GUEST ?
-                    <Link className="edit-button"
-                          to={"/EditProduct/" + this.props.product._id}><EditIcon/></Link>
-
-                        : null}
-                    {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
-                        <Link className="delete-button"
-                          to={"/DeleteProduct/" + this.props.product._id}><DeleteIcon/></Link>
-                        : null}
+                </div>
 
     </div>
         )

@@ -93,7 +93,7 @@ router.post(`/users/register/:name/:email/:password`, upload.single("profilePhot
                 bcrypt.hash(req.params.password, parseInt(process.env.PASSWORD_HASH_SALT_ROUNDS), (err, hash) =>
                 {
 
-                    usersModel.create({name:req.params.name, email:req.params.email, password:hash, profilePhotoFilename:req.file.filename, cart: req.file.cart}, (error, data) =>
+                    usersModel.create({name:req.params.name, email:req.params.email, password:hash, profilePhotoFilename:req.file.filename}, (error, data) =>
                     {
                         if(data)
                         {

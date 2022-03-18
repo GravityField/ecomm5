@@ -107,7 +107,7 @@ export default class Login extends Component
 
 
 
-                <LinkInClass value="Login" className="green-button" onClick={this.handleSubmit}/>
+                <LinkInClass value="Login" className="add-button" onClick={this.handleSubmit}/>
                 {/*<Link className="red-button" to={"/DisplayAllProducts"}>Cancel</Link>*/}
             </form>
         )

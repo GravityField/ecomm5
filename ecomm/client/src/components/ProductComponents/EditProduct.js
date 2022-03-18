@@ -17,7 +17,8 @@ export default class EditProduct extends Component {
             color: "",
             stockLevel: "",
             price: "",
-            selectedFiles: null,
+            file: "",
+            selectedFiles: [],
             productImages: [],
             wasSubmittedAtLeastOnce: false,
             redirectToDisplayAllProducts: localStorage.accessLevel < ACCESS_LEVEL_NORMAL_USER
@@ -74,6 +75,8 @@ export default class EditProduct extends Component {
 
     handleFileChange = (e) => {
         this.setState({selectedFiles: e.target.files})
+        this.setState({file: URL.createObjectURL(e.target.files[0])})
+        console.log(this.state.selectedFiles)
 
     }
     handleSubmit = (e) => {
@@ -160,6 +163,9 @@ export default class EditProduct extends Component {
         if (this.state.wasSubmittedAtLeastOnce) {
             errorMessage = <div className="error">Product Details are incorrect<br/></div>;
         }
+
+        console.log(this.state.productImages) //ARRAY
+        console.log(this.state.selectedFiles) //FILELIST
         return (
             <div className="form-container">
 
@@ -194,17 +200,21 @@ export default class EditProduct extends Component {
                         <Form.Label>Price</Form.Label>
                         <Form.Control type="text" name="price" value={this.state.price} onChange={this.handleChange}/>
                     </Form.Group>
-                    {this.state.productImages.map(photo => <img key={photo._id} className="modalImage" id={photo._id}
-                                                                alt=""/>)}
+
+                    <Form.Label>Photos</Form.Label>
                     <Form.Group controlId="productImages">
-                        <Form.Label>Photos</Form.Label>
+
+
+                        {this.state.productImages.map(photo => <img key={photo._id} className="modalImage" id={photo._id}
+                                                                    alt=""/>)}
+                        {this.state.file ? <img src={this.state.file} height="400px"/> : null}
                         <Form.Control
                             type="file" multiple onChange={this.handleFileChange}
                         /></Form.Group> <br/><br/>
 
-                    <LinkInClass value="Update" className="green-button" onClick={this.handleSubmit}/>
+                    <LinkInClass value="Update" className="add-button" onClick={this.handleSubmit}/>
 
-                    <Link className="red-button" to={"/DisplayAllProducts"}>Cancel</Link>
+                    <Link className="cancel-button" to={"/DisplayAllProducts"}>Cancel</Link>
                 </Form>
             </div>
         )

@@ -150,10 +150,6 @@ export default class HomePage extends Component
                         {this.state.colours.map(color => <option key={color}
                                                               value={color}>{color}</option>)}
                     </select>
-
-
-
-
                     <div className="search-container">
                         <input type="text" placeholder="Search..." id="search" onChange={() => this.handleSearch(document.getElementById('search').value)}/>
 
@@ -168,7 +164,7 @@ export default class HomePage extends Component
 
                     <div className="add-new-product">
                         {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
-                        <Link className="blue-button" to={"/AddProduct"}>Add New Product</Link>
+                            <Link className="add-button" to={"/AddProduct"}>Add New Product</Link>
                             : null}
                     </div>
                 </div>

@@ -1,0 +1,68 @@
+@import 'variables.scss';
+
+nav
+{
+  display: flex;
+  position: sticky;
+  top: 0;
+  background: $tone3;
+  text-align: center;
+  flex: 1;
+  z-index: 1;
+  overflow: hidden;
+  height: 60px;
+}
+nav a, nav span
+{
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  font-family: "Sofia", serif;
+  font-size: 40px;
+  text-decoration: none;
+}
+nav a:hover, nav span:hover
+{
+  color: $tone2;
+}
+
+#search-container
+{
+  float: right;
+}
+
+.search-icon
+{
+  color: white;
+  transform: scale(1.5);
+  border-radius: 15px;
+  margin-left: 10px;
+}
+.search-icon:hover
+{
+  color: $tone5;
+}
+.shopping-icon, .inventory-icon
+{
+  color: white;
+  transform: scale(1.6);
+  margin-top: -10px;
+}
+.shopping-icon:hover, .inventory-icon:hover
+{
+  color: $tone2;
+  transform: scale(1.5);
+}
+
+.menu-icon
+{
+  color: white;
+  margin-top: 10px;
+  font-size: 40px !important;
+  z-index: 2;
+}
+.menu-icon:hover
+{
+  color: $tone2;
+
+}

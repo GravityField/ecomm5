@@ -15,6 +15,7 @@ export default class ProductTable extends Component
     {
         return (
             <div className="products">
+                {this.props.products.length === 0 ? <p>No results found...</p> : null}
                     {this.props.products.map((product) => <ProductEntity key={product._id} product={product}/>)}
             </div>
         )

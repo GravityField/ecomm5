@@ -163,9 +163,9 @@ export default class AddProduct extends Component {
                             type="file" multiple onChange={this.handleFileChange}
                         /></Form.Group> <br/><br/>
 
-                    <LinkInClass value="Add" className="green-button" onClick={this.handleSubmit}/>
+                    <LinkInClass value="Add" className="add-button" onClick={this.handleSubmit}/>
 
-                    <Link className="red-button" to={"/DisplayAllProducts"}>Cancel</Link>
+                    <Link className="cancel-button" to={"/DisplayAllProducts"}>Cancel</Link>
                 </Form>
             </div>
         )
