@@ -101,14 +101,11 @@ router.post(`/users/register/:name/:email/:password`, upload.single("profilePhot
 
                             fs.readFile(`${process.env.UPLOADED_PROFILE_IMAGE_FOLDER}/${req.file.filename}`, 'base64', (err, fileData) =>
                             {
-
                                     res.json({
                                         name: data.name,
                                         accessLevel: data.accessLevel,
                                         profilePhoto: fileData,
                                         token: token
-
-
                             })})
                         }
                         else

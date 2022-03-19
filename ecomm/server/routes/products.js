@@ -52,15 +52,15 @@ const getProductDocument = (req,res) =>
 }
 const validation = (req,res,next) => {
 
-    if (!/^[a-zA-Z- '0-9]+$/.test(req.body.productName)) {
+    if (/[^A-Za-z0-9-' ]+$/.test(req.body.productName)) {
         res.json({errorMessage: `Product Name must be a string`});
     } else if (!/^[a-zA-Z- 0-9]+$/.test(req.body.size)) {
         res.json({errorMessage: `Size must be a string`});
     } else if (!/^[a-zA-Z- ]+$/.test(req.body.color)) {
         res.json({errorMessage: `Colour must be a string`});
-    } else if (!(req.body.stockLevel >= 0 && req.body.stockLevel <= 100)) {
+    } else if ((req.body.stockLevel < 0 || req.body.stockLevel > 100)) {
         res.json({errorMessage: `Stock Level must be between 0 and 100`});
-    } else if (!(req.body.price >= 0 && req.body.price <= 1000)) {
+    } else if ((req.body.price < 0 || req.body.price > 1000)) {
         res.json({errorMessage: `Price must be greater than zero or less than 1000`});
     } else // input is valid
     {
@@ -104,7 +104,6 @@ const editProductDocument = (req,res) =>
     {productDetails.productImages[index] = {filename:`${file.filename}`}
     })
 
-    console.log(productDetails)
     productsModel.findByIdAndUpdate(req.params.id, {$set: productDetails}, (error, data) =>
     {
         res.json(data)

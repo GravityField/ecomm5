@@ -67,7 +67,7 @@ export default class App extends Component
 
                     <Route exact path="/DisplayAllProducts" component={DisplayAllProducts}/>
                     <Route exact path="/DisplayProductDetails/:id" component={DisplayProductDetails}/>
-                    <Route exact path="/PurchaseHistory" component={PurchaseHistory}/>
+                    <LoggedInRoute exact path="/PurchaseHistory" component={PurchaseHistory}/>
                     <Route exact path="/DisplayAllProducts" component={SideBar}/>
                     <Route exact path="/Cart" component={Cart}/>
                     <Route exact path="/AddToCart/:_id" component={AddToCart}/>

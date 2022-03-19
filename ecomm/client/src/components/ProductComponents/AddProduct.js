@@ -118,44 +118,93 @@ export default class AddProduct extends Component {
     }
 
     render() {
-        let errorMessage = "";
-        if(this.state.wasSubmittedAtLeastOnce)
-        {
-            errorMessage = <div className="error">Product Details are incorrect<br/></div>;
+        let nameErrorMessage = ""
+        let sizeErrorMessage = ""
+        let colorErrorMessage = ""
+        let stockLevelErrorMessage = ""
+        let priceErrorMessage = ""
+
+
+
+        if(!this.validateName()) {
+            let errorMessages = []
+            if (!this.state.productName.match(/^[a-zA-Z- '0-9]+$/)) {
+                errorMessages.push({id: 0, text: "Product Name must only contain letters, numbers and - or '"})
+            }
+            nameErrorMessage = <div className="error"><ul>{errorMessages.map(errorMessage => <li key={errorMessage.id}> {errorMessage.text} </li>)}</ul></div>
+        }
+        if(!this.validateSize()) {
+            let errorMessages = []
+            if (!this.state.size.match(/^[a-zA-Z- 0-9]+$/)) {
+                errorMessages.push({id: 0, text: "Product Size must only contain letters, numbers and -"})
+            }
+            sizeErrorMessage = <div className="error"><ul>{errorMessages.map(errorMessage => <li key={errorMessage.id}> {errorMessage.text} </li>)}</ul></div>
+
+        }
+        if(!this.validateColor()) {
+            let errorMessages = []
+            if (!this.state.color.match(/^[a-zA-Z- ]+$/)) {
+                errorMessages.push({id: 0, text: "Product Colour must only contain letters and -"})
+            }
+            colorErrorMessage = <div className="error"><ul>{errorMessages.map(errorMessage => <li key={errorMessage.id}> {errorMessage.text} </li>)}</ul></div>
+        }
+        if(!this.validateStockLevel()) {
+            let errorMessages = []
+            if ((this.state.stockLevel >= 0 && this.state.stockLevel <= 100)) {
+                errorMessages.push({id: 0, text: "Product Stock Level must only contain numbers between 0 and 100"})
+            }
+            stockLevelErrorMessage = <div className="error"><ul>{errorMessages.map(errorMessage => <li key={errorMessage.id}> {errorMessage.text} </li>)}</ul></div>
+        }
+        if(!this.validatePrice()) {
+            let errorMessages = []
+            if ((this.state.price >= 0 && this.state.price <= 1000)) {
+                errorMessages.push({id: 0, text: "Product Price must only contain numbers between €0 and €1000"})
+            }
+            priceErrorMessage = <div className="error"><ul>{errorMessages.map(errorMessage => <li key={errorMessage.id}> {errorMessage.text} </li>)}</ul></div>
         }
         return (
             <div className="form-container">
                 {this.state.redirectToDisplayAllProducts ? <Redirect to="/DisplayAllProducts"/> : null}
 
                 <Form>
-                    {errorMessage}
                     <Form.Group controlId="name">
                         <Form.Label>Product Name</Form.Label>
                         <Form.Control ref={(input) => {
                             this.inputToFocus = input
-                        }} type="text" name="productName" value={this.state.productName} onChange={this.handleChange}/>
+                        }} type="text" name="productName" value={this.state.productName} onChange={this.handleChange}
+                        placeholder="Men's six pack T-shirt"/>
                     </Form.Group>
+                    {this.state.wasSubmittedAtLeastOnce ? nameErrorMessage : null}
 
                     <Form.Group controlId="size">
                         <Form.Label>Size</Form.Label>
-                        <Form.Control type="text" name="size" value={this.state.size} onChange={this.handleChange}/>
+                        <Form.Control type="text" name="size" value={this.state.size} onChange={this.handleChange}
+                                      placeholder="Medium"/>
                     </Form.Group>
+                    {this.state.wasSubmittedAtLeastOnce ? sizeErrorMessage : null}
+
 
                     <Form.Group controlId="color">
                         <Form.Label>Color</Form.Label>
-                        <Form.Control type="text" name="color" value={this.state.color} onChange={this.handleChange}/>
+                        <Form.Control type="text" name="color" value={this.state.color} onChange={this.handleChange}
+                                      placeholder="Orange"/>
                     </Form.Group>
+                    {this.state.wasSubmittedAtLeastOnce ? colorErrorMessage : null}
 
                     <Form.Group controlId="stock">
                         <Form.Label>Stock Level</Form.Label>
                         <Form.Control type="text" name="stockLevel" value={this.state.stockLevel}
-                                      onChange={this.handleChange}/>
+                                      onChange={this.handleChange}
+                                      placeholder="9"/>
                     </Form.Group>
+                    {this.state.wasSubmittedAtLeastOnce ? stockLevelErrorMessage : null}
 
                     <Form.Group controlId="price">
                         <Form.Label>Price</Form.Label>
-                        <Form.Control type="text" name="price" value={this.state.price} onChange={this.handleChange}/>
+                        <Form.Control type="text" name="price" value={this.state.price} onChange={this.handleChange}
+                                      placeholder="20.99"/>
                     </Form.Group>
+                    {this.state.wasSubmittedAtLeastOnce ? priceErrorMessage : null}
 
                     <Form.Group controlId="productImages">
                         <Form.Label>Photos</Form.Label>

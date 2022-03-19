@@ -47,8 +47,9 @@ console.log("Here Submitted")
 
         if (Object.keys(formInputsState).every(index => formInputsState[index])) {
 
-            formData.append("profilePhoto", this.state.selectedFile)
-
+            if(this.state.selectedFile) {
+                formData.append("profilePhoto", this.state.selectedFile)
+            }
             axios.post(`${SERVER_HOST}/users/register/${this.state.name}/${this.state.email}/${this.state.password}`, formData, {headers: {"Content-type": "multipart/form-data"}})
                 .then(res => {
 
@@ -87,7 +88,7 @@ console.log("Here Submitted")
 
     validatePassword()
     {
-        const pattern = /^(?=.[£!#€$%^&*]).{8,}$/
+        const pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
         return pattern.test(String(this.state.password))
     }
 

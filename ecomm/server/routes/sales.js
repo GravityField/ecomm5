@@ -69,7 +69,7 @@ const getSalesDocuments = (req, res) => {
 
 }
 
-    router.post('/sales/:paymentID/:productID/:price/:customerName/:customerEmail', createNewSaleDocument)
+router.post('/sales/:paymentID/:productID/:price/:customerName/:customerEmail', createNewSaleDocument)
 
 router.get(`/sales/:customerEmail`, getSalesDocuments)
 

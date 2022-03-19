@@ -29,7 +29,6 @@ export default class Account extends Component
     componentDidMount()
     {
         const token2 = jwt.decode(localStorage.token,{algorithm: 'HS256'})
-        console.log(token2)
         axios.get(`${SERVER_HOST}/users/${token2.id}`, {headers:{"authorization":localStorage.token}})
             .then(res => {
                     if (res.data) {
@@ -65,9 +64,10 @@ export default class Account extends Component
                         ? <img id="profilePhoto" src={`data:;base64,${localStorage.profilePhoto}`} alt=""/>
                         : null
                 }
+
                 <h2>{this.state.name}</h2>
                 <h3>{this.state.email}</h3>
-                <h4>{this.state.password}</h4>
+
 
 
 
