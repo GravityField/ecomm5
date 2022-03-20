@@ -47,23 +47,25 @@ export default class SideBar extends Component
 
         return (
             <div >
-                {!this.state.displayState ? <MenuIcon className="menu-icon" onClick={()=>this.setState({displayState: !this.state.displayState})} />
-                    : <CloseIcon className="menu-icon" onClick={()=>this.setState({displayState: !this.state.displayState})} /> }
+                {!this.state.displayState ? <MenuIcon className="menu-icon" onClick={()=>this.setState({displayState: true})} />
+                    : <CloseIcon className="menu-icon" onClick={()=>this.setState({displayState: false})} /> }
                 {this.state.displayState ?
                     <div className="sidebar">
                     <ul onClick={()=>this.setState({displayState: !this.state.displayState})}>
+                        {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
+                            <Link className="warning" to={"/ResetDatabase"}>Reset Database</Link> : null
+                        }
+                        {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
+                            <Link className="" to={"/DisplayAllUsers"}>Users</Link> : null
+                        }
+
                         <Link to={"/HomePage"}>Home</Link>
                         {localStorage.accessLevel >= ACCESS_LEVEL_NORMAL_USER ? <Link to={"/Account/" + this.state.user[0]._id}>Account</Link> : null}
                         {localStorage.accessLevel >= ACCESS_LEVEL_NORMAL_USER ?
                             <Link to={"/Logout"}>Logout</Link>
                             : <Link to={"/Login"}>Login</Link>
                         }
-                        {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
-                            <Link className="warning" to={"/DisplayAllUsers"}>Users</Link> : null
-                        }
-                        {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
-                            <Link className="warning" to={"/ResetDatabase"}>Reset Database</Link> : null
-                        }
+
                     </ul>
                 </div> : null}
             </div>

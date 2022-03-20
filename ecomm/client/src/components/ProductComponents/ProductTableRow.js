@@ -62,9 +62,9 @@ export default class ProductTableRow extends Component
                 <td>{this.props.product.color}</td>
                 <td>{this.props.product.stockLevel}</td>
                 <td>€{this.props.product.price}</td>
-                <td className="productPhotos">
-                    {this.props.product.productImages.map(photo => <img key={photo._id} id={photo._id} alt=""/>)}
-                </td>
+                {/*<td className="productPhotos">*/}
+                {/*    {this.props.product.productImages.map(photo => <img key={photo._id} id={photo._id} alt=""/>)}*/}
+                {/*</td>*/}
                 <td>{soldOrForSale}</td>
                 <td>
                     {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?

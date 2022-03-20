@@ -35,7 +35,7 @@ export default class Logout extends Component
                     {
                         console.log("User logged out")
                         localStorage.clear()
-
+                        window.location.reload(false);
                         this.setState({isLoggedIn:false})
                     }
                 }

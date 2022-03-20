@@ -20,9 +20,7 @@ export default class DeleteCart extends Component
     
     componentDidMount() 
     {
-
         const token2 = jwt.decode(localStorage.token, {algorithm: 'HS256'})
-        console.log(this.props.match.params._id)
         axios.delete(`${SERVER_HOST}/users/${token2.id}/cart/${this.props.match.params._id}`)
             .then(res => {
                 this.setState({redirectToCart: true})

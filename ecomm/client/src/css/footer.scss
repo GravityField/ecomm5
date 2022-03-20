@@ -1,10 +1,12 @@
 @import 'variables.scss';
 
+.footer-container
+{
+    width: 98vw;
+}
 .footer
 {
     margin-top: 150px;
-
-    height: 30vh;
     display: flex;
     background: $tone5;
 
@@ -40,4 +42,52 @@
     padding: 20px;
     color: $tone2;
     background: $tone7;
+}
+@media only screen and (max-width: 600px) {
+
+    .footer-container
+    {
+        width: 100vw;
+    }
+    .footer
+    {
+        margin-top: 150px;
+        display: flex;
+        flex-direction: column;
+        background: $tone5;
+
+    }
+    .footer ul
+    {
+        text-align: left;
+        padding: 5px;
+
+    }
+    .footer ul li
+    {
+        display: flex;
+        text-decoration: none;
+        list-style-type: none;
+        text-align: left;
+        padding: 10px;
+    }
+    .footer ul li h6
+    {
+        margin: 0;
+        text-align: left;
+    }
+
+    .footer-container
+    {
+        font-weight: bold;
+        text-align: center;
+        font-size: 15px;
+    }
+    .footer-container p
+    {
+        padding: 20px;
+        color: $tone2;
+        background: $tone7;
+    }
+
 }

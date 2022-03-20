@@ -40,29 +40,38 @@ export default class ProductEntity extends Component
     }
     render()
     {
-        return (
-            <div className="product">
-                <div className="buttons-grouped">
-                {localStorage.accessLevel > ACCESS_LEVEL_GUEST ?
-                    <Link className="edit-button"
-                          to={"/EditProduct/" + this.props.product._id}><EditIcon/></Link>
 
-                    : null}
-                {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
-                    <Link className="delete-button"
-                          to={"/DeleteProduct/" + this.props.product._id}><DeleteIcon/></Link>
-                    : null}
-                </div>
-                <div className="productPhotos">
-                    {this.props.product.productImages.map(photo => <img key={photo._id} id={photo._id} alt=""/>)}
-                    {/*{<img key={this.props.product.productImages._id} id={this.props.product.productImages[0]._id} alt=""  />}*/}
-                    <Link to={"/DisplayProductDetails/" + this.props.product._id}>{this.props.product.productName}</Link>
-                </div>
+        return (
+            <div className="product-container">
+
+                    <div className="productPhotos">
+
+                        {/*{this.props.product.productImages.map(photo => <img key={photo._id} id={photo._id} alt=""/>)}*/}
+                        {this.props.product.productImages.length !== 0 ?   <img key={this.props.product.productImages[0]._id} id={this.props.product.productImages[0]._id} /> : null}
+                        {/*{<img key={this.props.product.productImages._id} id={this.props.product.productImages[0]._id} alt=""  />}*/}
+
+                    </div>
+
+
                 <div className="product-info">
-                <p>{this.props.product.size}</p>
+                    <Link to={"/DisplayProductDetails/" + this.props.product._id}>{this.props.product.productName}</Link>
+                    <div className="reveal-info">
+                        <div className="buttons-grouped">
+                            {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
+                                <Link className="edit-button"
+                                      to={"/EditProduct/" + this.props.product._id}><EditIcon/></Link>
+
+                                : null}
+                            {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?
+                                <Link className="delete-button"
+                                      to={"/DeleteProduct/" + this.props.product._id}><DeleteIcon/></Link>
+                                : null}
+                        </div>
+                <p>Size: {this.props.product.size}</p>
                 {/*<p>{this.props.product.color}</p>*/}
-                    <p>{this.props.product.stockLevel}</p>
+                    <p>Stock: {this.props.product.stockLevel}</p>
                         <p>€{this.props.product.price}</p>
+                    </div>
                 </div>
 
     </div>

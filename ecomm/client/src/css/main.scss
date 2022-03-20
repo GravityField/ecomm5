@@ -89,9 +89,10 @@ iframe {
 .sidebar
 {
     position: fixed;
-    top: inherit;
-    margin-top: 10px;
+    top: 50px;
     right: 0;
+    margin-top: 10px;
+
     background-color: ghostwhite;
     overflow-x: hidden;
     padding-top: 20px;
@@ -132,8 +133,8 @@ ul a, ul span
 }
 #profilePhoto
 {
-    width: 120px;
-    float: right;
+    width: 200px;
+    height: 200px;
     border-radius: 20px;
 }
 #profilePhotoTable
@@ -146,12 +147,27 @@ input [type="button"]
 {
 color:pink;
 }
+#modal
+{
 
+}
+#modalContent
+{
+
+}
 .modalImage
 {
+
     float: left;
-    max-width: 20vw;
-    max-height:400px;
+    max-height:320px;
+}
+.modalImages
+{
+    width: 40vw;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    float: left;
 }
 .add-button
 {

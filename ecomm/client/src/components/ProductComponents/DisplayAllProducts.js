@@ -128,11 +128,7 @@ export default class DisplayAllProducts extends Component
                 <div>{localStorage.accessLevel >= ACCESS_LEVEL_NORMAL_USER ?
                     <h1>Hello {localStorage.name}
                     </h1> : null}
-                    {
-                        localStorage.profilePhoto !== "undefined"
-                            ? <img id="profilePhoto" src={`data:;base64,${localStorage.profilePhoto}`} alt=""/>
-                            : null
-                    }
+
                     <br/><br/><br/>
                     <select
                         name="filters"

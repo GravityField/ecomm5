@@ -2,7 +2,8 @@
 
 .table-container table
 {
-  width:100%;
+
+  max-width: 100vw;
   border-collapse:collapse;
   text-align: left;
 }
@@ -43,67 +44,220 @@
 {
   padding: 10px;
 }
+@media only screen and (max-width: 800px) {
+  .salesTable tr
+  {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .products
 {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: 30px;
   justify-content: center;
   border: 1px solid black;
   border-radius: 10px;
 
   width: 70vw;
-  padding: 10px;
+  padding: 20px;
   max-width: 70vw;
   background: $tone4;
+}
+
+///////
+.product-container
+{
+  padding-bottom: 20px;
 }
 .product
 {
   display: flex;
   flex-direction: column;
-
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: $tone1;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
   //min-width: 300px;
   //min-height: 500px;
   //max-width: 200px;
   width: 20vw;
-  height: 40vw;
-  margin: auto;
   text-align: center;
 }
-.product .buttons-grouped
+.productPhoto img
 {
-  display: flex;
-  position: relative;
-  z-index: 1;
+  border-radius: 20px;
+  width: 10vw;
 }
-.product .edit-button
+.productPhotos
 {
-  position: relative;
-  z-index: 1;
-  top: 0;
-  right: 80px;
-}
-.product .delete-button {
-  position: relative;
-  top: 0;
-  left: 80px;
-}
-.product-info
-{
-  display: none;
-}
-.product:hover .product-info
-{
-  display: block;
+  width: 20vw;
+  height: 60vh;
+  padding: 0px;
+  background: beige;
+  border-radius: 30px;
 }
 .productPhotos img
 {
-  border-radius: 10px;
+
+  box-shadow: 5px -5px 8px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
   //max-width: 20vw;
   //max-height: 20vh;
   width: 20vw;
   height: 60vh;
 }
+.buttons-grouped
+{
+  display: flex;
+  position: relative;
+  z-index: 1;
+}
+.reveal-info .edit-button
+{
+  position: relative;
+  z-index: 1;
+  top: 0;
+  right: 50px;
+
+}
+.reveal-info .delete-button {
+  position: relative;
+  top: 0;
+  left: 50px;
+}
+.product-info {
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 30px;
+  background-color: $tone1;
+  margin-top: -100px;
+  width: 20vw;
+  height: 100px;
+  overflow: hidden;
+  transition: .5s ease-in-out;
+}
+.reveal-info
+{
+  display: none;
+
+
+  align-items: center;
+}
+.product-container:hover .reveal-info {
+  display: flex;
+  flex-direction: column;
+
+  //transform: translateY(0);
+}
+.product-container:hover .product-info {
+  height: 200px;
+  margin-top: -200px
+  //transform: translateY(0);
+}
+@media only screen and (max-width: 1500px) {
+  .product
+  {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-color: $tone1;
+
+    //min-width: 300px;
+    //min-height: 500px;
+    //max-width: 200px;
+    width: 20vw;
+    text-align: center;
+  }
+  .productPhotos
+  {
+    width: 30vw;
+    height: 60vh;
+    padding: 0px;
+    background: beige;
+    transition: .5s ease-in-out;
+    border-radius: 30px;
+  }
+  .productPhotos img
+  {
+    box-shadow: 5px -5px 8px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    //max-width: 20vw;
+    //max-height: 20vh;
+    width: 30vw;
+    height: 60vh;
+    transition: .5s ease-in-out;
+  }
+  .product-info {
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 30px;
+    background-color: $tone1;
+    margin-top: -100px;
+    width: 30vw;
+    height: 100px;
+    overflow: hidden;
+    transition: .5s ease-in-out;
+  }
+
+}
+@media only screen and (max-width: 900px) {
+  .product
+  {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-color: $tone1;
+
+    //min-width: 300px;
+    //min-height: 500px;
+    //max-width: 200px;
+    width: 60vw;
+    text-align: center;
+  }
+  .productPhotos
+  {
+    width: 60vw;
+    height: 60vh;
+    padding: 0px;
+    background: beige;
+    transition: .5s ease-in-out;
+    border-radius: 30px;
+  }
+  .productPhotos img
+  {
+    box-shadow: 5px -5px 8px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    //max-width: 20vw;
+    //max-height: 20vh;
+    width: 60vw;
+    height: 60vh;
+    transition: .5s ease-in-out;
+  }
+  .product-info {
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 30px;
+    background-color: $tone1;
+    margin-top: -100px;
+    width: 60vw;
+    height: 100px;
+    overflow: hidden;
+    transition: .5s ease-in-out;
+  }
+
+}
+

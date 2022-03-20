@@ -9,6 +9,7 @@ const JWT_PRIVATE_KEY = fs.readFileSync(process.env.JWT_PRIVATE_KEY_FILENAME, 'u
 const multer  = require('multer')
 var upload = multer({dest: `${process.env.UPLOADED_PRODUCT_IMAGE_FOLDER}`})
 
+var createError = require('http-errors')
 
 const verifyUsersJWTPassword = (req, res, next) =>
 {
@@ -122,7 +123,7 @@ const uploadImages = (req,res) =>
     upload.array("productPhotos", parseInt(process.env.MAX_NUMBER_OF_UPLOAD_FILES_ALLOWED))
 }
 router.get(`/products`, getProducts)
-router.get(`/products/:id`, verifyUsersJWTPassword, getProductDocument)
+router.get(`/products/:id`, getProductDocument)
 router.get(`/product/photo/:filename`, (req, res) =>
 {
     fs.readFile(`${process.env.UPLOADED_PRODUCT_IMAGE_FOLDER}/${req.params.filename}`, 'base64', (err, fileData) =>

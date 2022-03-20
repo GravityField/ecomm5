@@ -5,7 +5,7 @@ nav
   display: flex;
   position: sticky;
   top: 0;
-  background: $tone3;
+  background: $tone4;
   text-align: center;
   flex: 1;
   z-index: 1;
@@ -52,6 +52,14 @@ nav a:hover, nav span:hover
 {
   color: $tone2;
   transform: scale(1.5);
+}
+#headerProfilePhoto
+{
+  height: 50px;
+  width: 50px;
+
+  margin-top: 5px;
+  border-radius: 30px;
 }
 
 .menu-icon

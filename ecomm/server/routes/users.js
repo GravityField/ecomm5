@@ -132,8 +132,9 @@ router.post(`/users/login/:email/:password`, (req,res) =>
                 if(result)
                 {
                     const token = jwt.sign({id: data.id,email:data.email, accessLevel:data.accessLevel}, JWT_PRIVATE_KEY, {algorithm:'HS256', expiresIn:process.env.JWT_EXPIRY})
+console.log(data)
 
-                    res.json({name: data.name, email: data.email, accessLevel:data.accessLevel, token:token})
+                    res.json({name: data.name, email: data.email, accessLevel:data.accessLevel, profilePhoto: data.profilePhotoFilename, token:token})
                 }
                 else
                 {

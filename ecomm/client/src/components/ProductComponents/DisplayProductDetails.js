@@ -5,9 +5,6 @@ import axios from "axios"
 
 import {ACCESS_LEVEL_GUEST, SERVER_HOST} from "../../config/global_constants"
 import {CloseButton} from "react-bootstrap";
-import LinkInClass from "../LinkInClass";
-import BuyProduct from "../SalesComponents/BuyProduct";
-import jwt from "jsonwebtoken";
 
 
 export default class DisplayProductDetails extends Component {
@@ -82,7 +79,12 @@ export default class DisplayProductDetails extends Component {
 
     }
     handleSubmit = (e) => {
-        const token2 = jwt.decode(localStorage.token,{algorithm: 'HS256'})
+
+
+        localStorage.cart = []
+        let products = []
+        products.push(this.props.match.params.id)
+        localStorage.cart += products
 
         axios.get(`${SERVER_HOST}/products/${this.props.match.params.id}`, {headers: {"authorization": localStorage.token}})
             .then(res => {
@@ -91,16 +93,7 @@ export default class DisplayProductDetails extends Component {
                     if (res.data.errorMessage) {
                         console.log(res.data.errorMessage)
                     } else {
-                                        // axios.post(`${SERVER_HOST}/users/${token2.id}/cart/${this.props.match.params.id}`)
-                                        //     .then(res => {
-                                        //         if(res) {
-                                        //             console.log("Added to Cart")
-                                        //         }
-                                        //         else
-                                        //         {
-                                        //             console.log("error")
-                                        //         }
-                                        //     })
+
                                     }
 
 
@@ -116,7 +109,15 @@ export default class DisplayProductDetails extends Component {
         {
             if(this.state.sold !== true)
             {
-                soldOrForSale = <Link className="add-button" to={"/AddToCart/" + this.props.match.params.id} onClick={this.handleSubmit}>Add to Cart</Link>
+                if(localStorage.accessLevel > ACCESS_LEVEL_GUEST) {
+                    soldOrForSale = <Link className="add-button" to={"/AddToCart/" + this.props.match.params.id}
+                                         >Add to Cart</Link>
+                }
+                else
+                {
+                    // soldOrForSale = <Link className="add-button" to={"/Cart"}
+                    //                       onClick={this.handleSubmit}>Add to Cart</Link>
+                }
             }
             else
             {
@@ -134,7 +135,7 @@ export default class DisplayProductDetails extends Component {
 
                         </div>
                         <h1>{this.state.title}</h1>
-                        <div>
+                        <div className="modalImages">
                         {this.state.productImages ? this.state.productImages.map(photo => <img key={photo._id} id={photo._id} className= "modalImage" alt=""/> ): null}
                         </div>
                         <h2>Product Name</h2>
@@ -146,7 +147,7 @@ export default class DisplayProductDetails extends Component {
                         <h2>Stock</h2>
                         <p>{this.state.stockLevel}</p>
                         <h2>Price</h2>
-                        <p>{this.state.price}</p>
+                        <p>€{this.state.price}</p>
 
                         {soldOrForSale}
 

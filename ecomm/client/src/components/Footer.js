@@ -1,9 +1,6 @@
 import React, {Component} from "react"
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from '@mui/icons-material/Close';
-import {ACCESS_LEVEL_ADMIN, ACCESS_LEVEL_NORMAL_USER, SERVER_HOST} from "../config/global_constants";
 import {Link} from "react-router-dom";
-import axios from "axios";
+
 
 export default class Footer extends Component
 {

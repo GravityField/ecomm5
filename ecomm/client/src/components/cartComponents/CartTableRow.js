@@ -2,16 +2,13 @@ import React, {Component} from "react"
 import {Link, Redirect} from "react-router-dom"
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import {
-    ACCESS_LEVEL_ADMIN,
     ACCESS_LEVEL_GUEST,
     ACCESS_LEVEL_NORMAL_USER,
     SERVER_HOST
 } from "../../config/global_constants";
 import BuyProduct from "../SalesComponents/BuyProduct";
 import axios from "axios";
-import jwt from "jsonwebtoken";
 
 export default class CartTableRow extends Component {
 
@@ -46,12 +43,6 @@ export default class CartTableRow extends Component {
         })
     }
 
-    handleSubmit = (e) => {
-
-
-
-    }
-
     render() {
         let soldOrForSale = null
         if (localStorage.accessLevel >= ACCESS_LEVEL_GUEST) {
@@ -71,9 +62,10 @@ export default class CartTableRow extends Component {
                 <td>{this.props.product.color}</td>
                 <td>{this.props.product.stockLevel}</td>
                 <td>€{this.props.product.price}</td>
-                <td className="productPhotos">
-                    {this.props.product.productImages !== null ? this.props.product.productImages.map(photo => <img
-                        key={photo._id} id={photo._id} alt=""/>) : null}
+                <td className="productPhoto">
+                    {/*{this.props.product.productImages !== null ? this.props.product.productImages.map(photo => <img*/}
+                    {/*    key={photo._id} id={photo._id} alt=""/>) : null}*/}
+                    {this.props.product.productImages.length !== 0 ?   <img key={this.props.product.productImages[0]._id} id={this.props.product.productImages[0]._id} /> : null}
                 </td>
                 <td>{soldOrForSale}</td>
                 <td>

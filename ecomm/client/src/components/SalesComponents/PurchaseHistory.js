@@ -4,14 +4,6 @@ import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
 import SaleTableRow from "./SaleTableRow";
 import jwt from "jsonwebtoken";
-// import Form from "react-bootstrap/Form"
-//
-// import axios from "axios"
-//
-// import LinkInClass from "../components/LinkInClass"
-//
-// import {SERVER_HOST} from "../config/global_constants"
-
 
 export default class PurchaseHistory extends Component
 {
@@ -76,17 +68,6 @@ export default class PurchaseHistory extends Component
                 }
             )
     }
-
-    handleChange = (e) =>
-    {
-        this.setState({[e.target.name]: e.target.value})
-    }
-
-    handleSubmit = (e) => {
-
-
-    }
-
 
     render()
     {

@@ -18,8 +18,8 @@ import HomePage from "./components/HomePage"
 import Account from "./components/UserComponents/Account";
 import Login from "./components/UserComponents/Login";
 import Logout from "./components/UserComponents/Logout";
-import Cart from "./components/UserComponents/Cart";
-import DeleteCart from "./components/UserComponents/DeleteCart";
+import Cart from "./components/cartComponents/Cart";
+import DeleteCart from "./components/cartComponents/DeleteCart";
 
 import {ACCESS_LEVEL_GUEST} from "./config/global_constants"
 import LoggedInRoute from "./components/LoggedInRoute";
@@ -30,7 +30,7 @@ import PurchaseHistory from "./components/SalesComponents/PurchaseHistory"
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import AddToCart from "./components/UserComponents/AddToCart";
+import AddToCart from "./components/cartComponents/AddToCart";
 
 if (typeof localStorage.accessLevel === "undefined")
 {
@@ -65,7 +65,7 @@ export default class App extends Component
 
                     <Route exact path="/HomePage" component={HomePage}/>
 
-                    <Route exact path="/DisplayAllProducts" component={DisplayAllProducts}/>
+                    <Route exact path="/DisplayAllProducts" component={HomePage}/>
                     <Route exact path="/DisplayProductDetails/:id" component={DisplayProductDetails}/>
                     <LoggedInRoute exact path="/PurchaseHistory" component={PurchaseHistory}/>
                     <Route exact path="/DisplayAllProducts" component={SideBar}/>

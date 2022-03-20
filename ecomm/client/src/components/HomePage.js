@@ -33,8 +33,6 @@ export default class HomePage extends Component
         axios.get(`${SERVER_HOST}/products`)
             .then(res =>
             {
-
-
                 if(res.data)
                 {
                     let sizes = res.data.map(product => product.size)
@@ -125,12 +123,15 @@ export default class HomePage extends Component
     {
         return (
             <div className="form-container">
-                <div>{localStorage.accessLevel >= ACCESS_LEVEL_NORMAL_USER ?
+                <div>
+
+                    {localStorage.accessLevel >= ACCESS_LEVEL_NORMAL_USER ?
                     <h1>Hello, {localStorage.name}
                     </h1> : null}
+
                     {
-                        localStorage.profilePhoto !== "null"
-                            ? <img id="profilePhoto" src={`data:;base64,${localStorage.profilePhoto}`} alt=""/>
+                        localStorage.accessLevel >= ACCESS_LEVEL_NORMAL_USER && localStorage.profilePhoto !== "null"
+                            ? <img id="profilePhoto" src={`data:;base64,${localStorage.profilePhoto}`} alt=" "/>
                             : null
                     }
                     <br/><br/><br/>
